@@ -10,7 +10,8 @@
     <android.support.design.widget.AppBarLayout
             android:layout_height="156dp"
             android:layout_width="match_parent"
-            android:theme="@style/AppTheme.AppBarOverlay" android:id="@+id/appBarLayout">
+            android:theme="@style/AppTheme.AppBarOverlay"
+            android:id="@+id/appBarLayout">
 
         <!--android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -33,7 +34,75 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="168dp"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+
+            android:id="@+id/buttons">
+            <Button
+                android:id="@+id/di_di_button"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:text="Drop-in"
+                android:background="@color/colorSecondary"
+                android:textColor="@color/textBackgroundPrimary"
+                />
+            <Button
+                android:id="@+id/res_di_button"
+                android:layout_width="112dp"
+                android:layout_height="wrap_content"
+                android:text="Reserver"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/textBackgroundPrimary"
+                android:elevation="6dp"
+                />
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager
+            android:layout_marginTop="12dp"
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/buttons">
+
+
+        </android.support.v4.view.ViewPager>
+
+    </RelativeLayout>
+
+    <!--RelativeLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="168dp">
+
+        <Button
+            android:id="@+id/di_di_button"
+            android:layout_width="112dp"
+            android:layout_height="wrap_content"
+            android:text="Drop-in"
+            android:background="@color/colorSecondary"
+            android:textColor="@color/textBackgroundPrimary"
+            />
+        <Button
+            android:id="@+id/res_di_button"
+            android:layout_width="112dp"
+            android:layout_height="wrap_content"
+            android:text="reserver"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/textBackgroundPrimary"
+            android:elevation="6dp"
+            />
+    </RelativeLayout-->
 
     <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
