@@ -16,7 +16,7 @@ class ReserveFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         var view : View = inflater.inflate(R.layout.content_main, container, false)
-
+        
         return view
     }
 

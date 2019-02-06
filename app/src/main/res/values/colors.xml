@@ -4,4 +4,9 @@
     <color name="colorSecondary">#00B8D4</color>
     <color name="colorAccent">#D81B60</color>
     <color name="textBackgroundPrimary">#FFFFFF</color>
+    <color name="availableColor">#00E528</color>
+    <color name="secondaryDark">#005D63</color>
+    <color name="primaryLight">#ECEFF1</color>
+    <color name="unavailableColor">#FF1300</color>
+
 </resources>
