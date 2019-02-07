@@ -21,7 +21,7 @@ class DropInFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        //TODO: Loadingwheel!
         val model = ViewModelProviders.of(this).get(DropInViewModel::class.java)
         model.getParkingSpots().observe(this, Observer<List<ParkingSpot>>{ parkingSpots ->
           //Todo: DO SOMETHING
