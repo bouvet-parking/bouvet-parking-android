@@ -4,7 +4,6 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.support.v4.widget.SwipeRefreshLayout
-import android.view.View
 import no.bouvet.projectparking.models.ParkingSpot
 import no.bouvet.projectparking.services.parseParkingSpots
 import org.jetbrains.anko.doAsync
