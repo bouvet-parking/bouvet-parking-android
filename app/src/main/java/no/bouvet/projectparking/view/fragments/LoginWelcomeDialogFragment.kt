@@ -1,12 +1,11 @@
-package no.bouvet.projectparking.fragments
+package no.bouvet.projectparking.view.fragments
 
 import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
-import no.bouvet.projectparking.LoginActivity
-import no.bouvet.projectparking.R
+import no.bouvet.projectparking.view.activities.LoginActivity
 
 class LoginWelcomeDialogFragment : DialogFragment() {
 

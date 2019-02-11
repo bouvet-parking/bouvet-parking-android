@@ -1,4 +1,4 @@
-package no.bouvet.projectparking.fragments
+package no.bouvet.projectparking.view.fragments
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter

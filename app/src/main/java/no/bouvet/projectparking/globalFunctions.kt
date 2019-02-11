@@ -1,4 +1,4 @@
-package no.bouvet.projectparking.services
+package no.bouvet.projectparking
 
 import android.util.Log
 import no.bouvet.projectparking.models.ParkingSpot

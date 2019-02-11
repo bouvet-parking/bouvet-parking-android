@@ -1,4 +1,4 @@
-package no.bouvet.projectparking.fragments
+package no.bouvet.projectparking.view.fragments
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager

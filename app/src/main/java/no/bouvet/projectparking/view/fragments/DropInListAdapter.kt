@@ -1,4 +1,4 @@
-package no.bouvet.projectparking.fragments
+package no.bouvet.projectparking.view.fragments
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView

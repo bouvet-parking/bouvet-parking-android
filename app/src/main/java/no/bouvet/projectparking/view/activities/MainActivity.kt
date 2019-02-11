@@ -1,4 +1,4 @@
-package no.bouvet.projectparking
+package no.bouvet.projectparking.view.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,9 +13,10 @@ import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 
 import kotlinx.android.synthetic.main.activity_main.*
-import no.bouvet.projectparking.fragments.DropInFragment
-import no.bouvet.projectparking.fragments.MainFragmentAdapter
-import no.bouvet.projectparking.fragments.ReserveFragment
+import no.bouvet.projectparking.R
+import no.bouvet.projectparking.view.fragments.MainFragmentAdapter
+import no.bouvet.projectparking.view.fragments.DropInFragment
+import no.bouvet.projectparking.view.fragments.ReserveFragment
 
 class MainActivity : AppCompatActivity() {
 

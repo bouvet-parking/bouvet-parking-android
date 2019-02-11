@@ -1,4 +1,4 @@
-package no.bouvet.projectparking.fragments
+package no.bouvet.projectparking.view.fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -11,13 +11,9 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade
 import no.bouvet.projectparking.R
 import java.util.*
 import kotlin.collections.HashSet
-import android.R.color
 import android.content.res.ColorStateList
-import android.content.res.Resources
-import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.support.v4.content.ContextCompat
-import android.support.v4.content.res.ResourcesCompat.getColor
 
 
 class ReserveFragment : Fragment() {

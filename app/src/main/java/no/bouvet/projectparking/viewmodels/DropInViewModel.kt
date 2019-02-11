@@ -5,7 +5,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.support.v4.widget.SwipeRefreshLayout
 import no.bouvet.projectparking.models.ParkingSpot
-import no.bouvet.projectparking.services.parseParkingSpots
+import no.bouvet.projectparking.parseParkingSpots
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import org.json.JSONArray
