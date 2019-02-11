@@ -1,10 +1,14 @@
 package no.bouvet.projectparking.fragments
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,17 +22,23 @@ import no.bouvet.projectparking.viewmodels.DropInViewModel
 class DropInFragment : Fragment() {
 
 
+    //List View Variables
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //TODO: Loadingwheel!
         val model = ViewModelProviders.of(this).get(DropInViewModel::class.java)
-        model.getParkingSpots().observe(this, Observer<List<ParkingSpot>>{ parkingSpots ->
-          //Todo: DO SOMETHING
+        model.getParkingSpots().observe(this, Observer<List<ParkingSpot>> { parkingSpots ->
+            //Todo: DO SOMETHING
             Log.d("UPDATE_DROPINVIEW", "SOMETHING HAS HAPPENED, DATA LOADED")
             Log.d("DROPINGVIEW:RESULTS", parkingSpots.toString())
             var count = 0
-            for(i in parkingSpots.orEmpty()){
-                if(i.spotStatus == "available") count += 1
+            for (i in parkingSpots.orEmpty()) {
+                if (i.spotStatus == "available") count += 1
             }
             availableSpots.text = count.toString()
 
@@ -53,8 +63,65 @@ class DropInFragment : Fragment() {
                     }
                 }
             }
-        })
+            //Handle List Dropdown Button
+            context?.let {
+                listButton.setBackgroundResource(R.drawable.down_button)
+                spotList.alpha = 0f
+                listButton.setOnClickListener {
+                    if(spotList.visibility == View.VISIBLE){
+                        listButton.setBackgroundResource(R.drawable.down_button)
+                        spotList.animate().alpha(0f)
+                                .setDuration(300)
+                                .setListener(object : AnimatorListenerAdapter() {
+                                    override fun onAnimationEnd(animation: Animator?) {
+                                        super.onAnimationEnd(animation)
+                                        spotList.visibility = View.GONE
+                                        spotList.clearAnimation()
+                                        hor_divider.visibility = View.VISIBLE
+                                    }
+                                })
 
+                    }
+                    else {
+                        hor_divider.visibility = View.GONE
+                        spotList.visibility = View.VISIBLE
+                        spotList.animate().alpha(1f)
+                                .setDuration(300)
+                                .setListener(
+                        object : AnimatorListenerAdapter(){
+                            override fun onAnimationEnd(animation: Animator?) {
+                                super.onAnimationEnd(animation)
+                                spotList.clearAnimation()
+
+                            }
+                        }
+                        )
+                        listButton.setBackgroundResource(R.drawable.up_button)
+
+                    }
+                }
+            }
+            //Handle List
+
+            viewManager = LinearLayoutManager(context)
+            parkingSpots?.let {
+                viewAdapter = DropInListAdapter(it, context)
+            }
+            recyclerView = spotList.apply {
+                // use this setting to improve performance if you know that changes
+                // in content do not change the layout size of the RecyclerView
+                setHasFixedSize(true)
+
+                // use a linear layout manager
+                layoutManager = viewManager
+
+                // specify an viewAdapter (see also next example)
+                adapter = viewAdapter
+
+            }
+
+
+        })
 
     }
 
@@ -68,7 +135,7 @@ class DropInFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        var view : View = inflater.inflate(R.layout.content_dropin, container, false)
+        var view: View = inflater.inflate(R.layout.content_dropin, container, false)
 
         return view
     }
@@ -82,7 +149,4 @@ class DropInFragment : Fragment() {
         }
     }
 
-    fun handleResult(result : String){
-
-    }
 }

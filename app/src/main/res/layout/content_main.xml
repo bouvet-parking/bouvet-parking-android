@@ -10,7 +10,7 @@
         tools:context=".MainActivity">
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
-                  android:orientation="vertical">
+                  android:orientation="vertical" android:id="@+id/cal_layout">
 
 
         <TextView
@@ -28,7 +28,7 @@
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                app:mcv_showOtherDates="all"
+                app:mcv_showOtherDates="out_of_range"
                 app:mcv_selectionColor="@color/colorSecondary"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
