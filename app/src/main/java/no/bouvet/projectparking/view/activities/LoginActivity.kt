@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import no.bouvet.projectparking.R
+import no.bouvet.projectparking.models.User
 import no.bouvet.projectparking.view.fragments.LoginFailedDialogFragment
 import no.bouvet.projectparking.view.fragments.LoginWelcomeDialogFragment
 
@@ -16,7 +18,11 @@ import no.bouvet.projectparking.view.fragments.LoginWelcomeDialogFragment
 
 class LoginActivity : AppCompatActivity() {
 
+    val db = FirebaseFirestore.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.login_layout)
@@ -48,6 +54,17 @@ class LoginActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
+                //Check if extra userinfo exists
+                user?.let {
+                    val userRef = db.collection("users").document(it.uid)
+
+                    userRef.get().addOnSuccessListener { document ->
+                        if (!document.exists()) {
+                            userRef.set(User(it.uid, it.phoneNumber, emptyList(), emptyList()))
+                        }
+                    }
+                }
+                //Go to main page
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 // ...
