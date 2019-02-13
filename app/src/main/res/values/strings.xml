@@ -14,6 +14,10 @@
     <string name="unavail">ledige plasser :(</string>
     <string name="spots_bread">Ledige plasser:</string>
 
+    <string name="reserve_date_picker">Når ønsker du å reservere plass?</string>
+    <string name="date_picker_text" >Velg en dato:</string>
+    <string name="velg">Velg</string>
+    <string name="avbryt">Avbryt</string>
 
 
 

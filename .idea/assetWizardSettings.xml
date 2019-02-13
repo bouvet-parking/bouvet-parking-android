@@ -140,7 +140,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/Applications/Android%20Studio%203.5%20Preview.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/hardware/ic_keyboard_arrow_up_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/Applications/Android%20Studio%203.5%20Preview.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/device/ic_access_time_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -150,8 +150,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="00b8d4" />
-                            <entry key="outputName" value="up_button" />
+                            <entry key="opacityPercent" value="61" />
+                            <entry key="outputName" value="time_icgray" />
                             <entry key="sourceFile" value="$USER_HOME$" />
                           </map>
                         </option>
