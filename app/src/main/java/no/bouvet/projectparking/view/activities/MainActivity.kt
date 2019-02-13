@@ -2,14 +2,18 @@ package no.bouvet.projectparking.view.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.content.ContextCompat
-import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log
+import androidx.core.content.ContextCompat
+import androidx.viewpager.widget.ViewPager
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.firebase.ui.auth.AuthUI
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -50,7 +54,14 @@ class MainActivity : AppCompatActivity() {
 
 
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar as (androidx.appcompat.widget.Toolbar))
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        mainImage.viewTreeObserver.addOnGlobalLayoutListener {
+            val offset = (toolbar.width/2 - mainImage.width/2).toFloat()
+            mainImage.x = offset
+        }
+
 
         //Floating Action Button
         //TODO: Move Sign out function - this is temporary!!!
@@ -69,37 +80,24 @@ class MainActivity : AppCompatActivity() {
         //Plugs in fragments for dropin and reserve screens
 
         mMainFragAdapter = MainFragmentAdapter(supportFragmentManager)
-        viewPager = findViewById(R.id.container)
+        viewPager = findViewById(R.id.container) as ViewPager
 
         setUpPager(viewPager)
 
         //NAVIGATION BUTTONS FUNCTIONS AND STYLE
-        var btnDropIn = findViewById<Button>(R.id.di_di_button)
-        var btnReserve = findViewById<Button>(R.id.res_di_button)
+        val mTabs = tabs as TabLayout
 
-        val pColVal = ContextCompat.getColor(this, R.color.colorPrimary)
-        val sColVal = ContextCompat.getColor(this, R.color.colorSecondary)
+        mTabs.setupWithViewPager(viewPager)
+        mTabs.getTabAt(0)?.text = "Drop-In"
+        mTabs.getTabAt(1)?.text = "Reserver"
 
 
-        btnDropIn.setOnClickListener {
-            setViewPager(0)
-        }
-        btnReserve.setOnClickListener{
-            setViewPager(1)
-        }
 
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(p0: Int) {
                 var i = viewPager.currentItem
 
-                if(i == 0){
-                    btnDropIn.setBackgroundColor(sColVal)
-                    btnReserve.setBackgroundColor(pColVal)
-                }
-                else{
-                    btnDropIn.setBackgroundColor(pColVal)
-                    btnReserve.setBackgroundColor(sColVal)
-                }
+
             }
 
             override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {

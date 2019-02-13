@@ -2,4 +2,19 @@
     <string name="app_name">ProjectParking</string>
     <string name="action_settings">Settings</string>
     <string name="main_logo">Main Logo</string>
+
+
+    <string name="drop_in">Drop-In</string>
+    <string name="reserver">Reserver</string>
+
+
+    <string name="drop_in_welcome">Finnes det noen ledige plasser nå?</string>
+    <string name="avail">ledig plass!</string>
+    <string name="avail_plur">ledige plasser!</string>
+    <string name="unavail">ledige plasser :(</string>
+    <string name="spots_bread">Ledige plasser:</string>
+
+
+
+
 </resources>

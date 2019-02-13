@@ -7,5 +7,6 @@ data class ParkingSpot (
         val documentType: String,
         val parkingSensorId: Int,
         val spotStatus: String,
-        val distanceMeasured: Int
+        val distanceMeasured: Int,
+        val timestamp: String
         )

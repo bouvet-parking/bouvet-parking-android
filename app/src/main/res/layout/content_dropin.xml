@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main"
     tools:context=".view.activities.MainActivity">
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/dropInRefreshContainer">
@@ -17,58 +16,87 @@
     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <androidx.cardview.widget.CardView
+            style="@style/Widget.MaterialComponents.CardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/textBackgroundPrimary"
+            app:cardBackgroundColor="@color/textBackgroundPrimary"
+            app:cardCornerRadius="@dimen/std"
+            app:cardElevation="4dp"
+            android:layout_margin="8dp"
+            >
 
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/dropText"
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:text="Finnes det noen ledige plasser nå?"
-                android:textAlignment="center"
-                android:layout_marginTop="12dp"
+                <TextView
+                    android:id="@+id/dropText"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="@string/drop_in_welcome"
+                    android:textAlignment="center"
+                    android:layout_marginTop="@dimen/std"
+                    android:textColor="@color/textGray"
 
+                    />
+
+                <TextView
+                    android:layout_marginTop="12dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:textSize="52sp"
+                    android:text=""
+                    android:id="@+id/availableSpots"
+                    android:textAlignment="center"
+                    android:textColor="@color/availableColor"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text=""
+                    android:id="@+id/availableText"
+                    android:textColor="@color/textGray"/>
+
+                <ImageButton
+                    android:layout_width="48dp" android:contentDescription="TODO"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="12dp"
+                    android:id="@+id/listButton"
                 />
 
-            <TextView
-                android:layout_marginTop="12dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="52sp"
-                android:text=""
-                android:id="@+id/availableSpots"
-                android:textAlignment="center"
-                android:textColor="@color/availableColor"
-                />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/spots_bread"
+                    android:textColor="@color/textGray"
+                    android:textAlignment="center"
+                    android:id="@+id/drop_text"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text=""
-                android:id="@+id/availableText"/>
-
-            <ImageButton
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="12dp"
-                android:id="@+id/listButton"
-            />
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="wrap_content"
-                android:layout_height="128dp"
-                android:id="@+id/spotList"
-                android:visibility="gone"
-                android:scrollbars="vertical"
-                android:layout_gravity="center"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spotList"
+                    android:visibility="gone"
+                    android:scrollbars="vertical"
+                    android:layout_gravity="center"/>
 
 
-            <View
-                android:id="@+id/hor_divider"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="128dp"
-                android:layout_height="1dp"
-                android:background="?dividerHorizontal"/>
+                <View
+                    android:id="@+id/hor_divider"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="128dp"
+                    android:layout_height="1dp"
+                    android:background="?dividerHorizontal"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
-    </android.support.v4.widget.SwipeRefreshLayout>
 
-</android.support.constraint.ConstraintLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

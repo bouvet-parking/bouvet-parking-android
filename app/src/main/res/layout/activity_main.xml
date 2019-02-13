@@ -1,116 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".view.activities.MainActivity"
+        android:background="@color/textBackgroundPrimary">
 
-    <android.support.design.widget.AppBarLayout
-            android:layout_height="156dp"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="156dp"
+        android:background="@color/primaryColor"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            android:id="@+id/appBarLayout">
+            android:layout_height="156dp"
+            android:background="@color/primaryColor"
+            android:elevation="4dp">
 
-        <!--android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="156dp"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
-        /-->
-        <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="156dp">
             <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/mainImage"
-                    android:src="@drawable/icon_text_white"
-                    android:contentDescription="@string/main_logo"/>
-        </android.support.v7.widget.Toolbar>
+                android:id="@+id/mainImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/main_logo"
+                android:src="@drawable/icon_text_white" />
 
-    </android.support.design.widget.AppBarLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="156dp"
         >
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="168dp"
-            android:orientation="horizontal"
-            android:layout_centerHorizontal="true"
 
-            android:id="@+id/buttons">
-            <Button
-                android:id="@+id/di_di_button"
-                android:layout_width="112dp"
-                android:layout_height="wrap_content"
-                android:text="Drop-in"
-                android:background="@color/colorSecondary"
-                android:textColor="@color/textBackgroundPrimary"
-                />
-            <Button
-                android:id="@+id/res_di_button"
-                android:layout_width="112dp"
-                android:layout_height="wrap_content"
-                android:text="Reserver"
-                android:background="@color/colorPrimary"
-                android:textColor="@color/textBackgroundPrimary"
-                android:elevation="6dp"
-                />
-        </LinearLayout>
-
-        <android.support.v4.view.ViewPager
+        <androidx.viewpager.widget.ViewPager
             android:layout_marginTop="12dp"
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/buttons">
+            >
+
+            <com.google.android.material.tabs.TabLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/tabs"
+                android:background="@color/textBackgroundPrimary"
+                app:tabIndicatorColor="@color/secondaryColor"
+                app:tabTextColor="@color/secondaryColor"
+                android:elevation="4dp"
+            >
+                <com.google.android.material.tabs.TabItem
+                    android:text="@string/drop_in"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:icon="@drawable/ic_person_white_24dp"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:text="@string/reserver"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content" />
+
+            </com.google.android.material.tabs.TabLayout>
 
 
-        </android.support.v4.view.ViewPager>
+        </androidx.viewpager.widget.ViewPager>
 
     </RelativeLayout>
 
-    <!--RelativeLayout android:layout_width="wrap_content"
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:layout_marginTop="168dp">
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/primaryColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_person_white_24dp" />
 
-        <Button
-            android:id="@+id/di_di_button"
-            android:layout_width="112dp"
-            android:layout_height="wrap_content"
-            android:text="Drop-in"
-            android:background="@color/colorSecondary"
-            android:textColor="@color/textBackgroundPrimary"
-            />
-        <Button
-            android:id="@+id/res_di_button"
-            android:layout_width="112dp"
-            android:layout_height="wrap_content"
-            android:text="reserver"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/textBackgroundPrimary"
-            android:elevation="6dp"
-            />
-    </RelativeLayout-->
-
-    <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            android:backgroundTint="@color/colorPrimary"
-            app:srcCompat="@drawable/ic_person_white_24dp"/>
-
-</android.support.design.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

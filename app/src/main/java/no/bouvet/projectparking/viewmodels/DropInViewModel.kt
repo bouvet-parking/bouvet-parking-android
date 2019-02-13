@@ -1,9 +1,9 @@
 package no.bouvet.projectparking.viewmodels
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
-import android.support.v4.widget.SwipeRefreshLayout
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import no.bouvet.projectparking.models.ParkingSpot
 import no.bouvet.projectparking.parseParkingSpots
 import org.jetbrains.anko.doAsync

@@ -16,7 +16,8 @@ fun parseParkingSpots(json : JSONArray) : MutableList<ParkingSpot>{
                 l.getString("documentType"),
                 l.getInt("parkingSpotNumber"),
                 l.getString("spotStatus"),
-                l.getInt("distanceMeasured")
+                l.getInt("distanceMeasured"),
+                l.getString("timeOfMeasurement")
         )
         parkingSpotList.add(parkingSpot)
     }
