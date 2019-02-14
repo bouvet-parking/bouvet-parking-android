@@ -1,4 +1,4 @@
-package no.bouvet.projectparking.view.fragments
+package no.bouvet.projectparking.view.fragments.dropin
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -33,7 +33,7 @@ class DropInListAdapter(private val parkingSpotData : List<ParkingSpot>, val con
     }
 
     override fun onBindViewHolder(holder : DropInListViewHolder, position: Int) {
-        holder.nr?.text = parkingSpotData[position].parkingSensorId.toString()
+        holder.nr?.text = parkingSpotData[position].pid.toString()
         //holder.status?.text = parkingSpotData[position].spotStatus
         holder.itemView.setOnClickListener{
             supportFragmentManager?.let {

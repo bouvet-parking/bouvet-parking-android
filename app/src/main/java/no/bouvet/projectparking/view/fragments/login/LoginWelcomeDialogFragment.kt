@@ -1,4 +1,4 @@
-package no.bouvet.projectparking.view.fragments
+package no.bouvet.projectparking.view.fragments.login
 
 import android.app.Dialog
 import android.content.DialogInterface

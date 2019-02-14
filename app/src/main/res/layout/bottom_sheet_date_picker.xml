@@ -48,12 +48,14 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:text="@string/avbryt"
+            android:id="@+id/cancel_picker"
             />
         <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:text="@string/velg"/>
+            android:text="@string/velg"
+            android:id="@+id/select_picker"/>
 
     </LinearLayout>
 

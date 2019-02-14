@@ -1,4 +1,4 @@
-package no.bouvet.projectparking.view.fragments
+package no.bouvet.projectparking.view.fragments.dropin
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ class DropInBottomSheetFragment(val data : ParkingSpot) : BottomSheetDialogFragm
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view : View = inflater.inflate(R.layout.bottom_sheet_dropin, container, false)
 
-        view.bs_spotNr.text = "Plass #" + data.parkingSensorId.toString()
+        view.bs_spotNr.text = "Plass #" + data.pid.toString()
         view.bs_status.text = "Status: "+ (if(data.spotStatus == "available") ("Ledig") else ("Error"))
         view.bs_dist.text = "Målt distanse: "+data.distanceMeasured.toString()
         view.bs_timestamp.text = "Sist oppdatert: "+data.timestamp

@@ -13,9 +13,9 @@ fun parseParkingSpots(json : JSONArray) : MutableList<ParkingSpot>{
     for( i in 0 until json.length() ){
         val l = (json[i] as JSONObject)
         val parkingSpot = ParkingSpot(
-                l.getString("id"),
-                l.getString("documentType"),
                 l.getInt("parkingSpotNumber"),
+                l.getString("documentType"),
+                l.getString("id"),
                 l.getString("spotStatus"),
                 l.getInt("distanceMeasured"),
                 l.getString("timeOfMeasurement")
@@ -40,18 +40,18 @@ fun parseDate(day: Int, month: Int, year: Int) : String{
     }
 
     when(month){
-        1 -> return "$day. Januar"
-        2 -> return "$day. Februar"
-        3 -> return "$day. Mars"
-        4 -> return "$day. April"
-        5 -> return "$day. Mai"
-        6 -> return "$day. Juni"
-        7 -> return "$day. Juli"
-        8 -> return "$day. August"
-        9 -> return "$day. September"
-        10 -> return "$day. Oktober"
-        11 -> return "$day. November"
-        12 -> return "$day. Desember"
+        0 -> return "$day. Januar"
+        1 -> return "$day. Februar"
+        2 -> return "$day. Mars"
+        3 -> return "$day. April"
+        4 -> return "$day. Mai"
+        5 -> return "$day. Juni"
+        6 -> return "$day. Juli"
+        7 -> return "$day. August"
+        8 -> return "$day. September"
+        9 -> return "$day. Oktober"
+        10 -> return "$day. November"
+        11 -> return "$day. Desember"
         else -> return "Date error"
     }
 

@@ -10,8 +10,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import no.bouvet.projectparking.R
 import no.bouvet.projectparking.models.User
-import no.bouvet.projectparking.view.fragments.LoginFailedDialogFragment
-import no.bouvet.projectparking.view.fragments.LoginWelcomeDialogFragment
+import no.bouvet.projectparking.view.fragments.login.LoginFailedDialogFragment
+import no.bouvet.projectparking.view.fragments.login.LoginWelcomeDialogFragment
 
 
 //TODO: FIKSE history, vil ikke gå tilbake hit om logget inn!!!!!

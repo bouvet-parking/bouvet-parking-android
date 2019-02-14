@@ -2,15 +2,10 @@ package no.bouvet.projectparking.view.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import com.firebase.ui.auth.AuthUI
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
@@ -19,8 +14,8 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import no.bouvet.projectparking.R
 import no.bouvet.projectparking.view.fragments.MainFragmentAdapter
-import no.bouvet.projectparking.view.fragments.DropInFragment
-import no.bouvet.projectparking.view.fragments.ReserveFragment
+import no.bouvet.projectparking.view.fragments.dropin.DropInFragment
+import no.bouvet.projectparking.view.fragments.reserve.ReserveFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -134,7 +129,7 @@ class MainActivity : AppCompatActivity() {
     
     //Sets up the page viewer, with dropin and reservation view
     private fun setUpPager(vP : ViewPager){
-        mMainFragAdapter.addFragment( DropInFragment(), "DropInFragment" )
+        mMainFragAdapter.addFragment(DropInFragment(), "DropInFragment" )
         mMainFragAdapter.addFragment(ReserveFragment(), "ReservationFragment")
 
         vP.adapter = mMainFragAdapter
