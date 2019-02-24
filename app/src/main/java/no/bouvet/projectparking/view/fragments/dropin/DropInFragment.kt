@@ -91,7 +91,6 @@ class DropInFragment : Fragment() {
                                         super.onAnimationEnd(animation)
                                         spotList.visibility = View.GONE
                                         spotList.clearAnimation()
-                                        hor_divider.visibility = View.VISIBLE
                                         drop_text.visibility = View.GONE
                                     }
                                 })
@@ -99,7 +98,6 @@ class DropInFragment : Fragment() {
                     }
                     else {
                         drop_text.visibility = View.VISIBLE
-                        hor_divider.visibility = View.GONE
                         spotList.visibility = View.VISIBLE
                         spotList.animate().alpha(1f)
                                 .setDuration(300)

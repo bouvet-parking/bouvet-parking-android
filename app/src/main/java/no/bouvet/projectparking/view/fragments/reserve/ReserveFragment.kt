@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.content_reserve.view.*
 import no.bouvet.projectparking.R
 import no.bouvet.projectparking.models.BookingSpot
 import no.bouvet.projectparking.parseDate
+import no.bouvet.projectparking.viewmodels.BookingViewModel
 import no.bouvet.projectparking.viewmodels.ReserveViewModel
 import java.util.*
 
@@ -32,12 +33,12 @@ class ReserveFragment : Fragment() {
         super.onCreate(savedInstanceState)
         time = Calendar.getInstance()
 
+        viewManager = GridLayoutManager(context, 4)
+
         val reserveSpots = ReserveViewModel()
         reserveSpots.getBookingSpots().observe(this, androidx.lifecycle.Observer{
             listBookingSpots -> bookingSpotList = listBookingSpots
             Log.d("LIVEDATA" , listBookingSpots.toString())
-
-            viewManager = GridLayoutManager(context, 4)
 
             viewAdapter = ReserveListAdapter(bookingSpotList, context, fragmentManager)
 
@@ -54,6 +55,14 @@ class ReserveFragment : Fragment() {
 
         })
 
+        val bookings = BookingViewModel(time)
+        val bookmap = bookings.getBooking(time).observe(this, androidx.lifecycle.Observer {
+            bookmap ->
+
+        })
+
+
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -64,6 +73,10 @@ class ReserveFragment : Fragment() {
         view.date_picker_button.setOnClickListener{
             ReserveDatePickerBottomSheetFragment(time, this).show(fragmentManager, "DATEPICKER")
         }
+
+        //TODO: REMOVE THIS BIT - ONLY FOR TESTING
+
+
 
 
         return view

@@ -32,4 +32,5 @@ class ReserveListAdapter(private val bookingSpotList : List<BookingSpot>, val co
         val pid = view.reserve_prNr
 
     }
+
 }

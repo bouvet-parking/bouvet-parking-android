@@ -39,6 +39,11 @@
                     android:textColor="@color/textGray"
 
                     />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/textGray"
+                    android:id="@+id/hor_divider"/>
 
                 <TextView
                     android:layout_marginTop="12dp"
@@ -77,6 +82,21 @@
                     android:textAlignment="center"
                     android:id="@+id/drop_text"/>
 
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            style="@style/Widget.MaterialComponents.CardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/textBackgroundPrimary"
+            app:cardBackgroundColor="@color/textBackgroundPrimary"
+            app:cardCornerRadius="@dimen/std"
+            app:cardElevation="4dp"
+            android:layout_margin="8dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -84,16 +104,9 @@
                     android:visibility="gone"
                     android:scrollbars="vertical"
                     android:layout_gravity="center"/>
-
-
-                <View
-                    android:id="@+id/hor_divider"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="128dp"
-                    android:layout_height="1dp"
-                    android:background="?dividerHorizontal"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
     </LinearLayout>
 
 
