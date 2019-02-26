@@ -1,13 +1,13 @@
 {
   "client_id" : "465c3e95-be98-42d2-bc02-043a767cf44e",
-  "authorization_user_agent" : "DEFAULT",
+  "authorization_user_agent" : "WEBVIEW",
   "redirect_uri" : "msal465c3e95-be98-42d2-bc02-043a767cf44e://auth",
   "authorities" : [
     {
       "type": "AAD",
       "audience": {
         "type": "AzureADandPersonalMicrosoftAccount",
-        "tenant_id": "common"
+        "tenant_id": "c317fa72-b393-44ea-a87c-ea272e8d963d"
       }
     }
   ]

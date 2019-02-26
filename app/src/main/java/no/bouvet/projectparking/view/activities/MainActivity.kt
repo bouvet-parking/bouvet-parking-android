@@ -2,51 +2,55 @@ package no.bouvet.projectparking.view.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.viewpager.widget.ViewPager
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import com.firebase.ui.auth.AuthUI
+
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.microsoft.identity.client.AuthenticationCallback
+import com.microsoft.identity.client.AuthenticationResult
+import com.microsoft.identity.client.IAccount
+import com.microsoft.identity.client.PublicClientApplication
+import com.microsoft.identity.client.exception.MsalClientException
+import com.microsoft.identity.client.exception.MsalException
+import com.microsoft.identity.client.exception.MsalServiceException
+import com.microsoft.identity.client.exception.MsalUiRequiredException
 
 import kotlinx.android.synthetic.main.activity_main.*
 import no.bouvet.projectparking.R
 import no.bouvet.projectparking.view.fragments.MainFragmentAdapter
 import no.bouvet.projectparking.view.fragments.dropin.DropInFragment
 import no.bouvet.projectparking.view.fragments.reserve.ReserveFragment
-
+import org.json.JSONObject
+import no.bouvet.projectparking.network.userSetup
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mMainFragAdapter : MainFragmentAdapter
     private lateinit var viewPager : ViewPager
 
-    private lateinit var auth: FirebaseAuth
+    var TAG = "PROJECT_PARKING:MAIN_ACTIVITY:"
 
-    public override fun onStart() {
+    /* Azure AD v2 Configs */
+    internal val SCOPES = arrayOf("https://graph.microsoft.com/User.Read")
 
-        //onStart checks if user is logged in
+    /* Azure AD Variables */
+    private var sampleApp: PublicClientApplication? = null
+    private var authResult: AuthenticationResult? = null
 
-        //TODO: Possible to make app entry quicker?
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val user = auth.currentUser
-        if (user != null) {
-            // User is signed in
-        } else {
-            // No user is signed in
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-        }
-    }
+    val db = FirebaseFirestore.getInstance()
+
+    lateinit var userData : JSONObject
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        auth = FirebaseAuth.getInstance()
-
+        //Check Login
+        checkLoggedIn()
 
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar as (androidx.appcompat.widget.Toolbar))
@@ -63,13 +67,7 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Signed Out", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
-            AuthUI.getInstance()
-                    .signOut(this)
-                    .addOnCompleteListener {
-                        // ...
-                    }
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            onSignOut()
         }
 
         //Plugs in fragments for dropin and reserve screens
@@ -91,19 +89,12 @@ class MainActivity : AppCompatActivity() {
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(p0: Int) {
                 var i = viewPager.currentItem
-
-
             }
-
             override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
-
             }
-
             override fun onPageSelected(p0: Int) {
-
             }
         })
-
     }
 
 
@@ -136,7 +127,121 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    public fun setViewPager(i : Int){
-        viewPager.currentItem = i
+    //AZURE METHODS
+
+
+    private fun checkLoggedIn(){
+        //AZURE AD LOGIN
+        sampleApp = null
+        if (sampleApp == null) {
+            sampleApp = PublicClientApplication(
+                    this.applicationContext,
+                    R.raw.auth_config)
+        }
+
+        /* Attempt to get a user and acquireTokenSilent
+         * If this fails we do an interactive request
+         */
+        var accounts: List<IAccount>? = null
+
+        try {
+            sampleApp?.let {
+
+                accounts = it.getAccounts()
+            }
+
+            if (accounts != null && accounts!!.size == 1) {
+                /* We have 1 account */
+                sampleApp?.let {
+                    it.acquireTokenSilentAsync(SCOPES, accounts!![0], getAuthSilentCallback())
+                }
+            } else {
+                goToLogin()
+            }
+        } catch (e: IndexOutOfBoundsException) {
+            Log.d(TAG, "Account at this position does not exist: $e")
+        }
     }
+
+
+
+    private fun getAuthSilentCallback(): AuthenticationCallback {
+        return object : AuthenticationCallback {
+            override fun onSuccess(authenticationResult: AuthenticationResult) {
+                /* Successfully got a token, call graph now */
+                Log.d(TAG, "Successfully authenticated")
+
+                /* Store the authResult */
+                authResult = authenticationResult
+                //Make sure user is stored in firebase, and set up userData variable
+                userSetup(getActivity(), authenticationResult, db)
+
+
+            }
+
+            override fun onError(exception: MsalException) {
+                /* Failed to acquireToken */
+                Log.d(TAG, "Authentication failed: $exception")
+
+                if (exception is MsalClientException) {
+                    /* Exception inside MSAL, more info inside MsalError.java */
+                } else if (exception is MsalServiceException) {
+                    /* Exception when communicating with the STS, likely config issue */
+                } else if (exception is MsalUiRequiredException) {
+                    /* Tokens expired or no session, retry with interactive */
+                }
+                goToLogin()
+            }
+
+            override fun onCancel() {
+                /* User canceled the authentication */
+                Log.d(TAG, "User cancelled login.")
+                goToLogin()
+            }
+        }
+    }
+
+    private fun onSignOut() {
+
+        /* Attempt to get a account and remove their cookies from cache */
+        var accounts: List<IAccount>? = null
+
+        try {
+            accounts = sampleApp?.getAccounts()
+
+            if (accounts == null) {
+                /* We have no accounts */
+
+            } else if (accounts.size == 1) {
+                /* We have 1 account */
+                /* Remove from token cache */
+                sampleApp?.removeAccount(accounts[0])
+
+            } else {
+                /* We have multiple accounts */
+                for (i in accounts.indices) {
+                    sampleApp?.removeAccount(accounts[i])
+                }
+            }
+            goToLogin()
+
+        } catch (e: IndexOutOfBoundsException) {
+            Log.d(TAG, "User at this position does not exist: $e")
+        }
+
+    }
+
+
+
+
+    fun goToLogin(){
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun getActivity() : MainActivity{
+        return this
+    }
+
 }

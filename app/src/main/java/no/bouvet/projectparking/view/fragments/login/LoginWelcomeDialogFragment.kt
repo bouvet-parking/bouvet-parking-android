@@ -14,7 +14,7 @@ class LoginWelcomeDialogFragment : DialogFragment() {
         return activity?.let {
             // Use the Builder class for convenient dialog construction
             val builder = AlertDialog.Builder(it)
-            builder.setMessage("Du logger deg enkelt inn ved hjelp av mobilen din!")
+            builder.setMessage("Du logger deg enkelt inn via din Bouvet-konto!")
                     .setTitle("Velkommen til Project Parking")
                     .setPositiveButton("Logg Inn", DialogInterface.OnClickListener { dialog, id ->
                         context?.let {

@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="no.bouvet.projectparking">
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
             android:allowBackup="true"
@@ -29,6 +30,18 @@
             android:label="loginActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.microsoft.identity.client.BrowserTabActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!--Add in your scheme/host from registered redirect URI-->
+                <data android:scheme="msal465c3e95-be98-42d2-bc02-043a767cf44e"
+                    android:host="auth" />
+            </intent-filter>
         </activity>
     </application>
 

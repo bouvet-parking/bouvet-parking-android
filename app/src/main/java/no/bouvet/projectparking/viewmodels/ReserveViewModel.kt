@@ -9,7 +9,6 @@ import com.google.firebase.firestore.QuerySnapshot
 import no.bouvet.projectparking.models.BookingSpot
 
 class ReserveViewModel : ViewModel() {
-
     private lateinit var bookingSpots : MutableLiveData<List<BookingSpot>>
     val db = FirebaseFirestore.getInstance()
 

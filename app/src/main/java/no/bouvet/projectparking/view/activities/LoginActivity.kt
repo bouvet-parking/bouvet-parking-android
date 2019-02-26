@@ -1,24 +1,25 @@
 package no.bouvet.projectparking.view.activities
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.IdpResponse
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.microsoft.identity.client.*
+import com.microsoft.identity.client.exception.*
 import no.bouvet.projectparking.R
-import no.bouvet.projectparking.models.User
 import no.bouvet.projectparking.view.fragments.login.LoginFailedDialogFragment
 import no.bouvet.projectparking.view.fragments.login.LoginWelcomeDialogFragment
 
-
-//TODO: FIKSE history, vil ikke gå tilbake hit om logget inn!!!!!
-
 class LoginActivity : AppCompatActivity() {
 
-    val db = FirebaseFirestore.getInstance()
+
+    /* Azure AD Variables */
+    private var sampleApp: PublicClientApplication? = null
+    private var authResult: AuthenticationResult? = null
+    val TAG = "LOGIN"
+
+    internal val SCOPES = arrayOf("https://graph.microsoft.com/User.Read")
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -27,79 +28,106 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(R.layout.login_layout)
 
-        val user = FirebaseAuth.getInstance().currentUser
-        if (user != null) {
+        /* Configure your sample app and save state for this activity */
+        sampleApp = null
+        if (sampleApp == null) {
+            sampleApp = PublicClientApplication(
+                    this.applicationContext,
+                    R.raw.auth_config)
+        }
 
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+        /* Attempt to get a user and acquireTokenSilent
+         * If this fails we do an interactive request
+         */
+        var accounts: List<IAccount>? = null
 
-        } else {
+        try {
+            sampleApp?.let {
 
-            val loginWelcomeMessage = LoginWelcomeDialogFragment()
+                accounts = it.getAccounts()
+            }
 
-            loginWelcomeMessage.isCancelable = false
-            loginWelcomeMessage.show(supportFragmentManager, "Welcome")
+            if (accounts != null && accounts!!.size == 1) {
+                /* We have 1 account */
+                intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+               //0 or more accounts - do nothing for now, login on user press button
+            }
+        } catch (e: IndexOutOfBoundsException) {
+            Log.d("LOGIN!", "Account at this position does not exist: $e")
+        }
 
+
+        val loginWelcomeMessage = LoginWelcomeDialogFragment()
+
+        loginWelcomeMessage.isCancelable = false
+        loginWelcomeMessage.show(supportFragmentManager, "Welcome")
+
+    }
+
+    // perform login on dialog fragment press
+    fun performLogin(){
+
+        sampleApp?.let{
+            it.acquireToken(this, SCOPES, getAuthInteractiveCallback())
         }
 
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    /* Callback used for interactive request.  If succeeds we use the access
+     * token to call the Microsoft Graph. Does not check cache
+     */
+    private fun getAuthInteractiveCallback(): AuthenticationCallback {
+        Log.d("LOGIN", "CALLBACK IS RUNNING")
+        return object : AuthenticationCallback {
+            override fun onSuccess(authenticationResult: AuthenticationResult) {
+                /* Successfully got a token, call graph now */
+                Log.d(TAG, "Successfully authenticated")
+                Log.d(TAG, "ID Token: " + authenticationResult.idToken)
 
-        if (requestCode == RC_SIGN_IN) {
-            val response = IdpResponse.fromResultIntent(data)
+                /* Store the auth result */
+                authResult = authenticationResult
 
-            if (resultCode == Activity.RESULT_OK) {
-                // Successfully signed in
-                val user = FirebaseAuth.getInstance().currentUser
-                //Check if extra userinfo exists
-                user?.let {
-                    val userRef = db.collection("users").document(it.uid)
+                startMain()
 
-                    userRef.get().addOnSuccessListener { document ->
-                        if (!document.exists()) {
-                            userRef.set(User(it.uid, it.phoneNumber, emptyList(), emptyList()))
-                        }
-                    }
+            }
+
+            override fun onError(exception: MsalException) {
+                /* Failed to acquireToken */
+                Log.d(TAG, "Authentication failed: $exception")
+
+                if (exception is MsalClientException) {
+                    /* Exception inside MSAL, more info inside MsalError.java */
+                } else if (exception is MsalServiceException) {
+                    /* Exception when communicating with the STS, likely config issue */
                 }
-                //Go to main page
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                // ...
-            } else {
-                // Sign in failed. If response is null the user canceled the
-                // sign-in flow using the back button. Otherwise check
-                // response.getError().getErrorCode() and handle the error.
-                // ...
-                val loginDialogFragment = LoginFailedDialogFragment()
+                val loginFailedDialog = LoginFailedDialogFragment()
+                loginFailedDialog.isCancelable = false
+                loginFailedDialog.show(supportFragmentManager, "Login Failed")
+            }
 
-                loginDialogFragment.isCancelable = false
-                loginDialogFragment.show(supportFragmentManager, "Login")
+            override fun onCancel() {
+                /* User canceled the authentication */
+                Log.d("LOGIN", "User cancelled login.")
+                val loginFailedDialog = LoginFailedDialogFragment()
+                loginFailedDialog.isCancelable = false
+                loginFailedDialog.show(supportFragmentManager, "Login Canceled")
             }
         }
     }
 
-    fun performLogin(){
-
-        val providers = arrayListOf(
-                AuthUI.IdpConfig.PhoneBuilder().build())
-
-        startActivityForResult(
-                AuthUI.getInstance()
-                        .createSignInIntentBuilder()
-                        .setAvailableProviders(providers)
-                        .build(),
-                RC_SIGN_IN)
-
-
-
+    /* Handles the redirect from the System Browser */
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        sampleApp?.handleInteractiveRequestRedirect(requestCode, resultCode, data)
     }
 
-    companion object {
-
-        private const val RC_SIGN_IN = 123
+    private fun startMain(){
+        intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
 }

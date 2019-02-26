@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.FirebaseApp
 import kotlinx.android.synthetic.main.content_reserve.*
 import kotlinx.android.synthetic.main.content_reserve.view.*
 import no.bouvet.projectparking.R
