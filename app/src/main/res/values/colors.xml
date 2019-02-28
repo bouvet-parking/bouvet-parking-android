@@ -17,4 +17,6 @@
     <color name="primaryLight">#ECEFF1</color>
     <color name="unavailableColor">#FF1300</color>
 
+    <color name="transparentGray">#40000000</color>
+
 </resources>

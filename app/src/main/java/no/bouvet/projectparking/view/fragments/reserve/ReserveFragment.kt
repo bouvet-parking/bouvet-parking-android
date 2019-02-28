@@ -1,6 +1,8 @@
 package no.bouvet.projectparking.view.fragments.reserve
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,13 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.FirebaseApp
+import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.content_reserve.*
 import kotlinx.android.synthetic.main.content_reserve.view.*
 import no.bouvet.projectparking.R
 import no.bouvet.projectparking.models.BookingSpot
 import no.bouvet.projectparking.parseDate
-import no.bouvet.projectparking.viewmodels.BookingViewModel
+import no.bouvet.projectparking.parseDateString
 import no.bouvet.projectparking.viewmodels.ReserveViewModel
 import java.util.*
 
@@ -29,15 +31,22 @@ class ReserveFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
+    private val reserveViewModel : ReserveViewModel = ReserveViewModel()
+
+    private lateinit var recyclerViewBooked: RecyclerView
+    private lateinit var viewAdapterBooked: RecyclerView.Adapter<*>
+    private lateinit var viewManagerBooked: RecyclerView.LayoutManager
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         time = Calendar.getInstance()
 
-        viewManager = GridLayoutManager(context, 4)
+        viewManager = GridLayoutManager(context, 3)
 
-        val reserveSpots = ReserveViewModel()
-        reserveSpots.getBookingSpots().observe(this, androidx.lifecycle.Observer{
+        reserveViewModel.getUnBookedSpots().observe(this, androidx.lifecycle.Observer{
             listBookingSpots -> bookingSpotList = listBookingSpots
             Log.d("LIVEDATA" , listBookingSpots.toString())
 
@@ -55,12 +64,19 @@ class ReserveFragment : Fragment() {
             }
 
         })
+        viewManagerBooked = GridLayoutManager(context, 3)
+        reserveViewModel.getBookedSpots().observe(this, androidx.lifecycle.Observer {
+            listBooked ->
 
-        val bookings = BookingViewModel(time)
-        val bookmap = bookings.getBooking(time).observe(this, androidx.lifecycle.Observer {
-            bookmap ->
+                viewAdapterBooked = ReserveBookedListAdapter(listBooked, context, fragmentManager)
+                recyclerViewBooked = booked_list.apply {
 
+                    setHasFixedSize(false)
+                    layoutManager = viewManagerBooked
+                    adapter = viewAdapterBooked
+                }
         })
+
 
 
 
@@ -74,9 +90,19 @@ class ReserveFragment : Fragment() {
         view.date_picker_button.setOnClickListener{
             ReserveDatePickerBottomSheetFragment(time, this).show(fragmentManager, "DATEPICKER")
         }
+        view.date_picker_button.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
-        //TODO: REMOVE THIS BIT - ONLY FOR TESTING
+            }
 
+            override fun afterTextChanged(s: Editable?) {
+                view.date_picker_button.iconPadding = view.date_picker_button.text.length * 8
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+        })
 
 
 
@@ -91,7 +117,15 @@ class ReserveFragment : Fragment() {
             it.date_picker_button.text = parseDate(time.get(Calendar.DATE), time.get(Calendar.MONTH), time.get(Calendar.YEAR))
 
             if(sheet.isVisible) sheet.dismiss()
+            val buttonView = it.findViewById<MaterialButton>(R.id.date_picker_button)
+            buttonView.invalidate()
+            buttonView.refreshDrawableState()
+            buttonView.iconGravity = MaterialButton.ICON_GRAVITY_TEXT_START
         }
+        reserveViewModel.loadData(parseDateString(time))
+        Log.d( "TIMETEST", parseDateString(time)
+        )
+
 
     }
 

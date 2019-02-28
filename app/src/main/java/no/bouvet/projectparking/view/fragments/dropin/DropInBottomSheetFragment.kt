@@ -8,6 +8,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.bottom_sheet_dropin.view.*
 import no.bouvet.projectparking.R
 import no.bouvet.projectparking.models.ParkingSpot
+import no.bouvet.projectparking.parseDate
+import java.util.*
 
 class DropInBottomSheetFragment(val data : ParkingSpot) : BottomSheetDialogFragment() {
 
@@ -15,9 +17,13 @@ class DropInBottomSheetFragment(val data : ParkingSpot) : BottomSheetDialogFragm
         var view : View = inflater.inflate(R.layout.bottom_sheet_dropin, container, false)
 
         view.bs_spotNr.text = "Plass #" + data.pid.toString()
-        view.bs_status.text = "Status: "+ (if(data.spotStatus == "available") ("Ledig") else ("Error"))
+        view.bs_status.text = (if(data.spotStatus == "available") ("Ledig") else ("Error"))
         view.bs_dist.text = "Målt distanse: "+data.distanceMeasured.toString()
-        view.bs_timestamp.text = "Sist oppdatert: "+data.timestamp
+
+        val timestamp = data.timestamp.split("T")
+
+
+        view.bs_timestamp.text = "Sist oppdatert: " + timestamp[0] + " kl. " + timestamp[1].substring(0, 8)
 
         return view
     }

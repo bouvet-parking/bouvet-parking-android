@@ -56,3 +56,7 @@ fun parseDate(day: Int, month: Int, year: Int) : String{
     }
 
 }
+
+fun parseDateString(date : Calendar) : String{
+    return("${date.get(Calendar.YEAR)}-${date.get(Calendar.MONTH)+1}-${date.get(Calendar.DATE)}")
+}

@@ -52,26 +52,97 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:textColor="@color/textGray"
-                    app:icon="@drawable/time_icgray"
+                    app:icon="@drawable/ic_event_black_24dp"
                     app:iconTint="@color/textGray"
                     android:id="@+id/date_picker_button"
+                    app:iconGravity="textStart"
                     >
 
                 </com.google.android.material.button.MaterialButton>
 
+
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+        style="@style/Widget.MaterialComponents.CardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/textBackgroundPrimary"
+        app:cardBackgroundColor="@color/textBackgroundPrimary"
+        app:cardCornerRadius="@dimen/std"
+        app:cardElevation="4dp"
+        android:layout_margin="8dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/availForBooking"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="Plasser som er ledige nå:"
+                android:textAlignment="center"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/textGray"
+                android:layout_marginBottom="@dimen/std" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/transparentGray"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/reserve_list">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            style="@style/Widget.MaterialComponents.CardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/textBackgroundPrimary"
+            app:cardBackgroundColor="@color/textBackgroundPrimary"
+            app:cardCornerRadius="@dimen/std"
+            app:cardElevation="4dp"
+            android:layout_margin="8dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/bookedText"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="Plasser som allerede er reservert:"
+                    android:textAlignment="center"
+                    android:layout_marginTop="12dp"
+                    android:textColor="@color/textGray"
+                    android:layout_marginBottom="@dimen/std" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/textGray"/>
+                    android:background="@color/transparentGray"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/reserve_list">
+                    android:id="@+id/booked_list">
 
                 </androidx.recyclerview.widget.RecyclerView>
-            </LinearLayout>
 
+            </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 

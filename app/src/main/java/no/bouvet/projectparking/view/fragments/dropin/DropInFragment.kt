@@ -75,49 +75,8 @@ class DropInFragment : Fragment() {
                     }
                 }
             }
-            //Handle List Dropdown Button
-            context?.let {
-                if(spotList.visibility == View.GONE){
-                    listButton.setBackgroundResource(R.drawable.down_button)
-                    spotList.alpha = 0f
-                    drop_text.visibility = View.GONE}
-                listButton.setOnClickListener {
-                    if(spotList.visibility == View.VISIBLE){
-                        listButton.setBackgroundResource(R.drawable.down_button)
-                        spotList.animate().alpha(0f)
-                                .setDuration(300)
-                                .setListener(object : AnimatorListenerAdapter() {
-                                    override fun onAnimationEnd(animation: Animator?) {
-                                        super.onAnimationEnd(animation)
-                                        spotList.visibility = View.GONE
-                                        spotList.clearAnimation()
-                                        drop_text.visibility = View.GONE
-                                    }
-                                })
 
-                    }
-                    else {
-                        drop_text.visibility = View.VISIBLE
-                        spotList.visibility = View.VISIBLE
-                        spotList.animate().alpha(1f)
-                                .setDuration(300)
-                                .setListener(
-                        object : AnimatorListenerAdapter(){
-                            override fun onAnimationEnd(animation: Animator?) {
-                                super.onAnimationEnd(animation)
-                                spotList.clearAnimation()
-
-                            }
-                        }
-                        )
-                        listButton.setBackgroundResource(R.drawable.up_button)
-
-                    }
-                }
-            }
-            //Handle List
-
-            viewManager = GridLayoutManager(context, 4)
+            viewManager = GridLayoutManager(context, 3)
             parkingSpots?.let {
 
                 val parkingSpotAvailableList = it.filter { it.spotStatus == "available" }

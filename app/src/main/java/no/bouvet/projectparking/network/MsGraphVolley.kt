@@ -9,7 +9,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.firebase.firestore.FirebaseFirestore
 import com.microsoft.identity.client.AuthenticationResult
-import no.bouvet.projectparking.repositories.writeUser
+import no.bouvet.projectparking.repositories.setupFirebaseUser
 import no.bouvet.projectparking.view.activities.MainActivity
 import org.json.JSONObject
 import java.util.HashMap
@@ -39,7 +39,7 @@ fun userSetup(activity: MainActivity, authResult : AuthenticationResult, db : Fi
         Log.d("VOLLEY TO MSGRAPH", "Response: $response")
         activity.userData = response
         //WRITE USER USING REPO
-        writeUser(db, response)
+        setupFirebaseUser(db, response)
 
     }, Response.ErrorListener { error -> Log.d("VOLLEY TO MSGRAPH", "Error: $error") }) {
         @Throws(AuthFailureError::class)
