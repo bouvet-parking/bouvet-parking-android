@@ -13,6 +13,9 @@ import no.bouvet.projectparking.models.ParkingSpot
 class DropInListAdapter(private val parkingSpotData : List<ParkingSpot>, val context : Context?, val supportFragmentManager: FragmentManager?) :
     RecyclerView.Adapter<DropInListAdapter.DropInListViewHolder>(){
 
+    //This class adapts the available spots for the grid list view
+
+
     class DropInListViewHolder(view: View) :
             RecyclerView.ViewHolder(view){
         val nr = view.prNr

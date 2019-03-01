@@ -22,6 +22,7 @@ class DropInViewModel : ViewModel() {
 
 
     private fun loadParkingSpots(){
+        //TODO: This method should probably be moved to Network
         doAsync {
             val result = URL("https://projectparking.azurewebsites.net/api/ParkingSpotsStatus/").readText()
             uiThread {
@@ -43,12 +44,10 @@ class DropInViewModel : ViewModel() {
     }
 
     fun reloadParkingSpots(){
-        // Todo: ANY checks here?
         loadParkingSpots()
     }
 
     fun refreshParkingSpots(view: SwipeRefreshLayout){
-        //TODO: Is nested async okay?
         doAsync {
             loadParkingSpots()
             uiThread {

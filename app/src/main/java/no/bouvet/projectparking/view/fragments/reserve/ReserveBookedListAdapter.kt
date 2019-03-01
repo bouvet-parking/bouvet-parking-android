@@ -6,14 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.reserve_list_item.view.*
+import kotlinx.android.synthetic.main.reserve_list_item_booked.view.*
 import no.bouvet.projectparking.R
 import no.bouvet.projectparking.models.Booked
 
 class ReserveBookedListAdapter(private val bookedSpotList : List<Booked>, val context : Context?, val supportFragmentManager: FragmentManager?) : RecyclerView.Adapter<ReserveBookedListAdapter.ReserveBookedListHolder>() {
 
+    //Adapts the booked spots for grid list view
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReserveBookedListHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.reserve_list_item, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.reserve_list_item_booked, parent, false)
 
         return ReserveBookedListHolder(view)
     }
@@ -36,7 +39,7 @@ class ReserveBookedListAdapter(private val bookedSpotList : List<Booked>, val co
 
 
     class ReserveBookedListHolder(view : View) : RecyclerView.ViewHolder(view){
-        val pid = view.reserve_prNr
+        val pid = view.reserve_b_prNr
 
     }
 

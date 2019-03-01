@@ -9,6 +9,8 @@ import no.bouvet.projectparking.view.activities.LoginActivity
 
 class LoginWelcomeDialogFragment : DialogFragment() {
 
+    //Welcome dialog which is shown to user on login
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         return activity?.let {
@@ -16,15 +18,14 @@ class LoginWelcomeDialogFragment : DialogFragment() {
             val builder = AlertDialog.Builder(it)
             builder.setMessage("Du logger deg enkelt inn via din Bouvet-konto!")
                     .setTitle("Velkommen til Project Parking")
-                    .setPositiveButton("Logg Inn", DialogInterface.OnClickListener { dialog, id ->
+                    .setPositiveButton("Logg Inn")  { dialog, id ->
                         context?.let {
                             if (it is LoginActivity) {
                                 it.performLogin()
                             }
                         }
                     }
-
-                    ).setCancelable(false)
+            builder.setCancelable(false)
             // Create the AlertDialog object and return it
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")

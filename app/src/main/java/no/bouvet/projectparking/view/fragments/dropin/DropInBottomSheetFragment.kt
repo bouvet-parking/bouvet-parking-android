@@ -13,6 +13,8 @@ import java.util.*
 
 class DropInBottomSheetFragment(val data : ParkingSpot) : BottomSheetDialogFragment() {
 
+    //This sheet presents data for an available drop-in space
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view : View = inflater.inflate(R.layout.bottom_sheet_dropin, container, false)
 

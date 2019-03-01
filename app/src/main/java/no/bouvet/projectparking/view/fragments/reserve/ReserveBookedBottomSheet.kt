@@ -13,6 +13,8 @@ import no.bouvet.projectparking.models.Booked
 
 class ReserveBookedBottomSheet(val data : Booked) : BottomSheetDialogFragment() {
 
+    //Sets up data for the booked bottom sheet
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view : View = inflater.inflate(R.layout.bottom_sheet_booked, container, false)

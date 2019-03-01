@@ -58,3 +58,5 @@ fun userSetup(activity: MainActivity, authResult : AuthenticationResult, db : Fi
             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
     queue.add(request)
 }
+
+internal  val MSGRAPH_PHOTO_URL = "https://graph.microsoft.com/v1.0/me/photo/\$value"

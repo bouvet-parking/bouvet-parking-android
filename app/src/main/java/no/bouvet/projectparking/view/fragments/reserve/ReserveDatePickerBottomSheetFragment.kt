@@ -14,7 +14,9 @@ class ReserveDatePickerBottomSheetFragment(cal : Calendar, fragContext: ReserveF
 
     val minDate = Calendar.getInstance()
 
-    val parent = fragContext //TODO: NEED SOME GOOD WAY TO ALTER PARENT TIME ON SELECT
+    val parent = fragContext
+
+    //Sets up the datepicker
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view : View = inflater.inflate(R.layout.bottom_sheet_date_picker, container, false)

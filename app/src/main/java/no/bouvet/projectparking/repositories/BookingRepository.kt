@@ -6,6 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import no.bouvet.projectparking.models.Booked
 import no.bouvet.projectparking.models.BookingSpot
+import no.bouvet.projectparking.models.User
 
 
 fun loadallSpaces( funct : (MutableList<BookingSpot>) -> Unit){
@@ -87,3 +88,4 @@ fun loadBookingList(date: String, bookedList : MutableList<Booked>, unBookedList
 
 
 }
+

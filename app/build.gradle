@@ -57,6 +57,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     implementation 'androidx.appcompat:appcompat:1.0.2'
 
+    //Circular Imageview
+    implementation 'com.github.abdularis:circularimageview:1.3'
 }
 
 

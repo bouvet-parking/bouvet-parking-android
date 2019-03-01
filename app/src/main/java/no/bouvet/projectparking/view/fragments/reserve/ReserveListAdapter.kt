@@ -24,6 +24,12 @@ class ReserveListAdapter(private val bookingSpotList : List<BookingSpot>, val co
 
     override fun onBindViewHolder(holder: ReserveListHolder, position: Int) {
         holder.pid.text = bookingSpotList[position].pid.toString()
+        holder.itemView.setOnClickListener {
+
+            val bottomSheet = ReserveBottomSheet(bookingSpotList[position])
+            bottomSheet.show(supportFragmentManager, "ReserveSheet")
+
+        }
     }
 
 

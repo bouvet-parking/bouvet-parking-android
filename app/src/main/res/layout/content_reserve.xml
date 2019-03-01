@@ -9,6 +9,10 @@
     tools:showIn="@layout/activity_main"
     tools:context=".view.activities.MainActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
                   android:orientation="vertical" android:id="@+id/cal_layout">
 
@@ -151,5 +155,6 @@
 
 
     </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

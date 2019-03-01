@@ -9,6 +9,8 @@ import no.bouvet.projectparking.view.activities.LoginActivity
 
 class LoginFailedDialogFragment : DialogFragment() {
 
+    //Dialog which is shown when login fails
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
         return activity?.let {

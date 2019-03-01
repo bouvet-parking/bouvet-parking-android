@@ -3,7 +3,7 @@ package no.bouvet.projectparking.models
 
 data class Booked (
         val date: String,
-        val pid: String,
+        val pid: String?,
         val booked: Boolean,
         val uid: String?,
         val userPhoneNumber : String?,

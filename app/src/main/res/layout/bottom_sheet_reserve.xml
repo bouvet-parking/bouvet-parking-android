@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/bsr">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="48dp"
+        android:paddingRight="48dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bsr_pid"
+            android:layout_marginTop="24dp"
+            android:textSize="20sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ledig"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bsr_charger"
+            android:textSize="16sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bsr_bread"
+            android:textSize="12sp"
+            android:layout_marginTop="4dp"
+            android:text="@string/bsr_bread"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bsr_profile"
+            android:textSize="12sp"
+            android:layout_marginTop="4dp"
+            android:text="@string/bsr_profile"/>
+
+
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bsr_reserve_button"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/secondaryColor"
+            app:backgroundTint="@color/secondaryColor"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="24sp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            app:iconPadding="@dimen/std"
+            app:iconGravity="textStart"
+            android:text="@string/reserve"
+            />
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

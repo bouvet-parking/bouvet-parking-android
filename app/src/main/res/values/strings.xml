@@ -20,6 +20,15 @@
     <string name="avbryt">Avbryt</string>
 
     <string name="reservert" >Reservert </string>
+    <string name="ledig">Ledig</string>
+
+    <string name="bekreft">Bekreft</string>
+    <string name="bekreft_bread">Bekreft at du virkelig ønsker å reservere denne plassen!</string>
+    <string name="reserve">Reserver</string>
+    <string name="bekreft_res">Bekreft Reservasjon</string>
+
+    <string name="bsr_bread">Husk å fjerne din reservasjon om du ikke lengre ønsker å benytte deg av plassen.</string>
+    <string name="bsr_profile">Du kan se dine reservasjoner på din profil.</string>
 
 
 

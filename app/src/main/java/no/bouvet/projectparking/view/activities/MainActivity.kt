@@ -1,11 +1,17 @@
 package no.bouvet.projectparking.view.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
 import androidx.viewpager.widget.ViewPager
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ScrollView
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 
 import com.google.android.material.snackbar.Snackbar
@@ -38,8 +44,11 @@ class MainActivity : AppCompatActivity() {
     internal val SCOPES = arrayOf("https://graph.microsoft.com/User.Read")
 
     /* Azure AD Variables */
-    private var sampleApp: PublicClientApplication? = null
-    private var authResult: AuthenticationResult? = null
+    companion object {
+        var sampleApp: PublicClientApplication? = null
+        private var authResult: AuthenticationResult? = null
+    }
+
 
     val db = FirebaseFirestore.getInstance()
 
@@ -51,11 +60,12 @@ class MainActivity : AppCompatActivity() {
 
         //Check Login
         checkLoggedIn()
-
+        //Setup view
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar as (androidx.appcompat.widget.Toolbar))
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        //Center Toolbar Image
         mainImage.viewTreeObserver.addOnGlobalLayoutListener {
             val offset = (toolbar.width/2 - mainImage.width/2).toFloat()
             mainImage.x = offset
@@ -63,14 +73,13 @@ class MainActivity : AppCompatActivity() {
 
 
         //Floating Action Button
-        //TODO: Move Sign out function - this is temporary!!!
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Signed Out", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-            onSignOut()
+            intent = Intent(this, ProfileActivity::class.java)
+            intent.putExtra("uid", userData.getString("id"))
+            startActivity(intent)
         }
 
-        //Plugs in fragments for dropin and reserve screens
+        //Plug in fragments for dropin and reserve screens
 
         mMainFragAdapter = MainFragmentAdapter(supportFragmentManager)
         viewPager = findViewById(R.id.container) as ViewPager
@@ -85,7 +94,7 @@ class MainActivity : AppCompatActivity() {
         mTabs.getTabAt(1)?.text = "Reserver"
 
 
-
+        //Handle tab navigation
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(p0: Int) {
                 var i = viewPager.currentItem
@@ -95,7 +104,9 @@ class MainActivity : AppCompatActivity() {
             override fun onPageSelected(p0: Int) {
             }
         })
+
     }
+
 
 
     //Settings Menu
@@ -127,9 +138,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    //AZURE METHODS
-
-
+    //AZURE METHODS for handling logged in user
     private fun checkLoggedIn(){
         //AZURE AD LOGIN
         sampleApp = null
@@ -162,8 +171,6 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "Account at this position does not exist: $e")
         }
     }
-
-
 
     private fun getAuthSilentCallback(): AuthenticationCallback {
         return object : AuthenticationCallback {
@@ -200,39 +207,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-    private fun onSignOut() {
-
-        /* Attempt to get a account and remove their cookies from cache */
-        var accounts: List<IAccount>? = null
-
-        try {
-            accounts = sampleApp?.getAccounts()
-
-            if (accounts == null) {
-                /* We have no accounts */
-
-            } else if (accounts.size == 1) {
-                /* We have 1 account */
-                /* Remove from token cache */
-                sampleApp?.removeAccount(accounts[0])
-
-            } else {
-                /* We have multiple accounts */
-                for (i in accounts.indices) {
-                    sampleApp?.removeAccount(accounts[i])
-                }
-            }
-            goToLogin()
-
-        } catch (e: IndexOutOfBoundsException) {
-            Log.d(TAG, "User at this position does not exist: $e")
-        }
-
-    }
-
-
-
 
     fun goToLogin(){
         val intent = Intent(this, LoginActivity::class.java)

@@ -27,12 +27,15 @@ class ReserveFragment : Fragment() {
 
     lateinit var bookingSpotList : List<BookingSpot>
 
-    //List View Variables
+    //Grid List view varialbes for available spots
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
+
+    //ViewModel for getting all spots
     private val reserveViewModel : ReserveViewModel = ReserveViewModel()
 
+    //Grid List view varialbes for booked spots
     private lateinit var recyclerViewBooked: RecyclerView
     private lateinit var viewAdapterBooked: RecyclerView.Adapter<*>
     private lateinit var viewManagerBooked: RecyclerView.LayoutManager
@@ -43,6 +46,8 @@ class ReserveFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         time = Calendar.getInstance()
+
+        //setup Grid Views
 
         viewManager = GridLayoutManager(context, 3)
 
@@ -58,7 +63,7 @@ class ReserveFragment : Fragment() {
 
                 layoutManager = viewManager
 
-                // specify an viewAdapter (see also next example)
+                // specify an viewAdapter
                 adapter = viewAdapter
 
             }
@@ -85,11 +90,17 @@ class ReserveFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         var view : View = inflater.inflate(R.layout.content_reserve, container, false)
+
+        //Setup datepicker with todays date
+
         view.date_picker_button.text = parseDate(time.get(Calendar.DATE), time.get(Calendar.MONTH), time.get(Calendar.YEAR))
 
         view.date_picker_button.setOnClickListener{
             ReserveDatePickerBottomSheetFragment(time, this).show(fragmentManager, "DATEPICKER")
         }
+
+        //Move icon to start of text dynamically
+
         view.date_picker_button.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
@@ -112,6 +123,8 @@ class ReserveFragment : Fragment() {
 
     fun updateDate(sheet : ReserveDatePickerBottomSheetFragment, newDate : Calendar){
 
+        //Function is called from DatePicker Bottom Sheet
+
         time = newDate
         view?.let {
             it.date_picker_button.text = parseDate(time.get(Calendar.DATE), time.get(Calendar.MONTH), time.get(Calendar.YEAR))
@@ -123,8 +136,6 @@ class ReserveFragment : Fragment() {
             buttonView.iconGravity = MaterialButton.ICON_GRAVITY_TEXT_START
         }
         reserveViewModel.loadData(parseDateString(time))
-        Log.d( "TIMETEST", parseDateString(time)
-        )
 
 
     }

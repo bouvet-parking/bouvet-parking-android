@@ -32,6 +32,11 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
+            android:name=".view.activities.ProfileActivity"
+            android:label="profileActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name="com.microsoft.identity.client.BrowserTabActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
